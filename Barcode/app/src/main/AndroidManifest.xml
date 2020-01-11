@@ -21,7 +21,7 @@
 
         android:usesCleartextTraffic="true"
 
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -33,7 +33,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         initViews();
     }
 
-    
+
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
