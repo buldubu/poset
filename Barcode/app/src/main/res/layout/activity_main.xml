@@ -4,95 +4,307 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00bcd4"
+    android:background="#FFFFFF"
     android:clipToPadding="false"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/colorBack"
+        android:id="@+id/db1"
+        android:layout_width="148dp"
+        android:layout_height="177dp"
+        android:elevation="2dp"
+        android:fadingEdgeLength="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/db5"
+        app:layout_constraintEnd_toStartOf="@+id/db3"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/poset" />
+        app:layout_constraintTop_toBottomOf="@+id/text">
 
-    <CheckBox
-        android:id="@+id/vegetarian_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Vegetarian"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        tools:layout_editor_absoluteX="0dp" />
+        <CheckBox
+            android:textSize="@dimen/textSize"
+            android:id="@+id/vegan_check"
+            android:layout_width="97dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:text="Vegan"
+            android:textColor="#292929"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image1"
+            app:layout_constraintVertical_bias="0.058" />
 
-    <CheckBox
-        android:id="@+id/vegan_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vegan"
-        app:layout_constraintTop_toBottomOf="@+id/vegetarian_check"
-        tools:layout_editor_absoluteX="0dp" />
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="141dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/vegan" />
 
-    <CheckBox
-        android:id="@+id/pork_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Non-pork Eater"
-        app:layout_constraintTop_toBottomOf="@+id/vegan_check"
-        tools:layout_editor_absoluteY="188dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <CheckBox
-        android:id="@+id/gluten_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gluten Intolerant"
-        app:layout_constraintTop_toBottomOf="@+id/pork_check"
-        tools:layout_editor_absoluteY="220dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/db2"
+        android:layout_width="148dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorBack"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:fadingEdgeLength="4dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toTopOf="@+id/nxt_button"
+        app:layout_constraintEnd_toStartOf="@+id/db4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/db5">
 
-    <CheckBox
-        android:id="@+id/fructose_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fructose Intolerant"
-        app:layout_constraintTop_toBottomOf="@+id/gluten_check"
-        tools:layout_editor_absoluteY="252dp" />
+        <CheckBox
+            android:textSize="@dimen/textSize"
+            android:id="@+id/vegetarian_check"
+            android:layout_width="97dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:text="Vegetarian"
+            android:textColor="#292929"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image2"
+            app:layout_constraintVertical_bias="0.058" />
 
-    <CheckBox
-        android:id="@+id/peanut_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Peanut Allergic"
-        app:layout_constraintTop_toBottomOf="@+id/fructose_check"
-        tools:layout_editor_absoluteY="284dp" />
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="141dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/vegetarian" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/db3"
+        android:layout_width="148dp"
+        android:layout_height="177dp"
+        android:background="@color/colorBack"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:fadingEdgeLength="4dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toTopOf="@+id/db6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/db1"
+        app:layout_constraintTop_toBottomOf="@+id/text">
+
+        <CheckBox
+            android:textSize="@dimen/textSize"
+            android:id="@+id/pork_check"
+            android:layout_width="97dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:text="Non-pork Eater"
+            android:textColor="#292929"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image3"
+            app:layout_constraintVertical_bias="0.058" />
+
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="141dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pork" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/db4"
+        android:layout_width="148dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorBack"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:fadingEdgeLength="4dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toTopOf="@+id/nxt_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/db2"
+        app:layout_constraintTop_toBottomOf="@+id/db6">
+
+        <CheckBox
+            android:textSize="@dimen/textSize"
+            android:id="@+id/gluten_check"
+            android:layout_width="97dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:text="Gluten Intolerant"
+            android:textColor="#292929"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image4"
+            app:layout_constraintVertical_bias="0.058" />
+
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="141dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/gluten" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/db5"
+        android:layout_width="148dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorBack"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:fadingEdgeLength="4dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toTopOf="@+id/db2"
+        app:layout_constraintEnd_toStartOf="@+id/db6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/db1">
+
+        <CheckBox
+            android:textSize="@dimen/textSize"
+            android:id="@+id/fructose_check"
+            android:layout_width="97dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:text="Fructose Intolerant"
+            android:textColor="#292929"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image5"
+            app:layout_constraintVertical_bias="0.058" />
+
+        <ImageView
+            android:id="@+id/image5"
+            android:layout_width="141dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/fructose" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/db6"
+        android:layout_width="148dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorBack"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:fadingEdgeLength="4dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toTopOf="@+id/db4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/db5"
+        app:layout_constraintTop_toBottomOf="@+id/db3">
+
+        <CheckBox
+            android:textSize="@dimen/textSize"
+            android:id="@+id/peanut_check"
+            android:layout_width="97dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:text="Peanut Allergic"
+            android:textColor="#292929"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image6"
+            app:layout_constraintVertical_bias="0.058" />
+
+        <ImageView
+            android:id="@+id/image6"
+            android:layout_width="141dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/peanut" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="Check Ones that Applies for You Please"
-        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:textColor="#000"
+        android:text="Check Ones that Applies for You"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/nxt_button"
-        android:layout_width="117dp"
-        android:layout_height="58dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
         android:text="Save"
+        android:background="#0099ff"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

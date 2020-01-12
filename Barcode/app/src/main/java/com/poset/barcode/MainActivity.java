@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -25,6 +27,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CheckBox gluten_check;
     CheckBox fructose_check;
     CheckBox peanut_check;
+    ConstraintLayout db1;
+    ConstraintLayout db2;
+    ConstraintLayout db3;
+    ConstraintLayout db4;
+    ConstraintLayout db5;
+    ConstraintLayout db6;
+    ImageView img1;
+    ImageView img2;
+    ImageView img3;
+    ImageView img4;
+    ImageView img5;
+    ImageView img6;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +63,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gluten_check = findViewById(R.id.gluten_check);
         fructose_check = findViewById(R.id.fructose_check);
         peanut_check = findViewById(R.id.peanut_check);
+
+        db1 = findViewById(R.id.db1);
+        db2 = findViewById(R.id.db2);
+        db3 = findViewById(R.id.db3);
+        db4 = findViewById(R.id.db4);
+        db5 = findViewById(R.id.db5);
+        db6 = findViewById(R.id.db6);
+
+        db1.setOnClickListener(this);
+        db2.setOnClickListener(this);
+        db3.setOnClickListener(this);
+        db4.setOnClickListener(this);
+        db5.setOnClickListener(this);
+        db6.setOnClickListener(this);
+
+        img1 = findViewById(R.id.image1);
+        img2 = findViewById(R.id.image2);
+        img3 = findViewById(R.id.image3);
+        img4 = findViewById(R.id.image4);
+        img5 = findViewById(R.id.image5);
+        img6 = findViewById(R.id.image6);
+
+        img1.setOnClickListener(this);
+        img2.setOnClickListener(this);
+        img3.setOnClickListener(this);
+        img4.setOnClickListener(this);
+        img5.setOnClickListener(this);
+        img6.setOnClickListener(this);
+
         nxt_button.setOnClickListener(this);
         vegetarian_check.setOnClickListener(this);
         vegan_check.setOnClickListener(this);
@@ -71,22 +115,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 writeData(str);
                 startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
                 break;
-            case R.id.vegetarian_check:
+            case R.id.image2:
                 vegetarian_check.setChecked(vegetarian_check.isChecked());
                 break;
-            case R.id.vegan_check:
+            case R.id.image1:
                 vegan_check.setChecked(vegan_check.isChecked());
                 break;
-            case R.id.pork_check:
+            case R.id.image3:
                 pork_check.setChecked(pork_check.isChecked());
                 break;
-            case R.id.gluten_check:
+            case R.id.image4:
                 gluten_check.setChecked(gluten_check.isChecked());
                 break;
-            case R.id.fructose_check:
+            case R.id.image5:
                 fructose_check.setChecked(fructose_check.isChecked());
                 break;
-            case R.id.peanut_check:
+            case R.id.image6:
                 peanut_check.setChecked(peanut_check.isChecked());
                 break;
         }
