@@ -1,6 +1,7 @@
 package com.poset.barcode;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     String intentData = "";
     Date date1;
     Date date2;
+    String ans = "";
     Map<String, String> map = new HashMap<>();
 
     @Override
@@ -116,7 +118,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                             i++;
                             readString = buffreader.readLine ( ) ;
                         }
-                        //System.out.println(son);
+                        System.out.println(son);
+                        ans = son;
+                        /*
                         final String ans = son;
                         txtBarcodeValue.post(new Runnable() {
                             @Override
@@ -124,7 +128,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                                 txtBarcodeValue.setText("Name: " + map.get("\"urun_adi\"") +  "\n" + ans);
                             }
                         });
-
+                        */
                         isr.close ( ) ;
                     } catch ( IOException ioe ) {
                         System.out.println("Hata = " + ioe);
@@ -207,6 +211,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     date1 = new Date();
                     intentData = barcodes.valueAt(0).displayValue;
                     downloadJSON("http://172.24.5.51:8080/deneme/index.php?barkod=" + intentData);
+
+                    Intent i = new Intent(ScannedBarcodeActivity.this, Pop.class);
+                    i.putExtra("son", ans);
+                    startActivity(i);
                 }
                 else if( ((int) (date2.getTime() - date1.getTime()))/100 > 15){
                     txtBarcodeValue.post(new Runnable() {
