@@ -1,18 +1,28 @@
 package com.poset.barcode;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
@@ -23,8 +33,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     String intentData = "";
+    String data = "";
     Date date1;
     Date date2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +45,65 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         initViews();
     }
 
+    private void downloadJSON(final String urlWebService) {
+
+        class DownloadJSON extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                data = s;
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(urlWebService);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+
+                    //JSONArray jsonarray = new JSONArray(sb.toString());
+                    //Toast.makeText(getApplicationContext(), Integer.toString(jsonarray.length()),Toast.LENGTH_LONG);
+                    return sb.toString().trim();
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        DownloadJSON getJSON = new DownloadJSON();
+        getJSON.execute();
+    }
+
+
+
+
 
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
     }
+
+
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.floatingActionButton:
+                finish();
+                break;
+        }
+    }
+
 
     private void initialiseDetectorsAndSources() {
         barcodeDetector = new BarcodeDetector.Builder(this)
@@ -82,15 +148,18 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 date2 = new Date();
                 if (barcodes.size() != 0) {
                     date1 = new Date();
+
                     txtBarcodeValue.post(new Runnable() {
                         @Override
                         public void run() {
                             intentData = barcodes.valueAt(0).displayValue;
-                            txtBarcodeValue.setText(intentData);
+                            txtBarcodeValue.setText(intentData + " " + data);
                         }
                     });
+
+                    downloadJSON("http://172.24.5.51:8080/deneme/index.php?barkod=" + intentData);
                 }
-                else if( ((int) (date2.getTime() - date1.getTime()))/1000 > 3){
+                else if( ((int) (date2.getTime() - date1.getTime()))/1000 > 2){
                     txtBarcodeValue.post(new Runnable() {
                         @Override
                         public void run() {
@@ -103,6 +172,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -113,4 +184,5 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         super.onResume();
         initialiseDetectorsAndSources();
     }
+
 }

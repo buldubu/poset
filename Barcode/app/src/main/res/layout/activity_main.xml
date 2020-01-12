@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
     tools:context=".MainActivity">
 
+    <CheckBox
+        android:id="@+id/vegetarian_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:text="Vegetarian"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
+
+    <CheckBox
+        android:id="@+id/vegan_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vegan"
+        app:layout_constraintTop_toBottomOf="@+id/vegetarian_check"
+        tools:layout_editor_absoluteY="156dp" />
+
+    <CheckBox
+        android:id="@+id/pork_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non-pork Eater"
+        app:layout_constraintTop_toBottomOf="@+id/vegan_check"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <CheckBox
+        android:id="@+id/gluten_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gluten Intolerant"
+        app:layout_constraintTop_toBottomOf="@+id/pork_check"
+        tools:layout_editor_absoluteY="220dp" />
+
+    <CheckBox
+        android:id="@+id/fructose_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fructose Intolerant"
+        app:layout_constraintTop_toBottomOf="@+id/gluten_check"
+        tools:layout_editor_absoluteY="252dp" />
+
+    <CheckBox
+        android:id="@+id/peanut_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Peanut Allergic"
+        app:layout_constraintTop_toBottomOf="@+id/fructose_check"
+        tools:layout_editor_absoluteY="284dp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="Check Ones that Applies for You Please"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nxt_button"
+        android:layout_width="117dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <include layout="@layout/content_main" />
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
