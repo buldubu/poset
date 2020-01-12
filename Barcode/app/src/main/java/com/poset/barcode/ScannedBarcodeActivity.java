@@ -3,9 +3,10 @@ package com.poset.barcode;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -63,7 +64,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-
                 if(s != null && !s.equals("rro")) {
                     String[] datas = s.split("\",\"");
                     for (int i = 0; i < datas.length; i++) {
@@ -73,18 +73,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         else if(i == datas.length-1) map.put("\""+keyValue[0], keyValue[1]);
                         else map.put("\""+keyValue[0], keyValue[1]+"\"");
                     }
-                    //System.out.println(map);
-
-
-                    /*
-                    txtBarcodeValue.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtBarcodeValue.setText("Barcode: " + map.get("\"barkod\"") + "\n" + "Name: " + map.get("\"urun_adi\""));
-                        }
-                    });
-                     */
-
                     int i = 0;
                     String son = "";
                     String comp = "\"1\"";
@@ -94,48 +82,35 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         BufferedReader buffreader = new BufferedReader ( isr ) ;
                         String readString = buffreader.readLine ( ) ;
                         while ( readString != null ) {
-                            if(i == 0 && map.get("\"vegan\"").equals(comp) && Boolean.parseBoolean(readString) == true){
-                                son = son + "Veganlara uygun degil!\n";
-                                //System.out.println(i);
+                            if(i == 0 && map.get("\"vegan\"").equals(comp) && Boolean.parseBoolean(readString)){
+                                son = son + "Non Vegan!\n";
                             }
-                            else if(i == 1 && map.get("\"vejeteryan\"").equals(comp) && Boolean.parseBoolean(readString) == true){
-                                son = son + "Vejeteryanlara uygun degil!\n";
-                                //System.out.println(i);
+                            else if(i == 1 && map.get("\"vejeteryan\"").equals(comp) && Boolean.parseBoolean(readString)){
+                                son = son + "Non Vegeterian!\n";
                             }
-                            else if(i == 2 && map.get("\"non_pork\"").equals(comp) && Boolean.parseBoolean(readString) == true){
-                                son = son + "Domuz ve urunlerı icerir!\n";
-                                //System.out.println(i);
+                            else if(i == 2 && map.get("\"non_pork\"").equals(comp) && Boolean.parseBoolean(readString)){
+                                son = son + "Pork!\n";
                             }
-                            else if(i == 3 && map.get("\"gluten\"").equals(comp) && Boolean.parseBoolean(readString) == true){
-                                son = son + "Gluten icerir!\n";
-                                //System.out.println(i);
+                            else if(i == 3 && map.get("\"gluten\"").equals(comp) && Boolean.parseBoolean(readString)){
+                                son = son + "Gluten includes!\n";
                             }
-                            else if(i == 4 && map.get("\"fruktoz\"").equals(comp) && Boolean.parseBoolean(readString) == true){
-                                son = son + "Fruktoz icerir!\n";
-                                //System.out.println(i);
+                            else if(i == 4 && map.get("\"fruktoz\"").equals(comp) && Boolean.parseBoolean(readString)){
+                                son = son + "Fructose includes!\n";
                             }
-                            else if(i == 5 && map.get("\"yer_fistigi\"").equals(comp) && Boolean.parseBoolean(readString) == true) {
-                                son = son + "Yer fistigi icerir!\n";
-                                //System.out.println(i);
+                            else if(i == 5 && map.get("\"yer_fistigi\"").equals(comp) && Boolean.parseBoolean(readString)) {
+                                son = son + "Peanut includes!\n";
                             }
                             i++;
                             readString = buffreader.readLine ( ) ;
                         }
-                        //System.out.println(son);
-                        //ans = son;
+                        if(son == "") {
+                            Pop.arkaPlan.setBackgroundColor(Color.GREEN);
+                            son = "You can eat it safely";
+                        }else
+                            Pop.arkaPlan.setBackgroundColor(Color.WHITE);
                         Pop.text.setText(son);
-                        /*
-                        final String ans = son;
-                        txtBarcodeValue.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                txtBarcodeValue.setText("Name: " + map.get("\"urun_adi\"") +  "\n" + ans);
-                            }
-                        });
-                        */
                         isr.close ( ) ;
                     } catch ( IOException ioe ) {
-                        System.out.println("Hata = " + ioe);
                         ioe.printStackTrace ( ) ;
                     }
                 }
@@ -175,12 +150,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.EAN_13)
                 .build();
-
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(1920, 1080)
                 .setAutoFocusEnabled(true)
                 .build();
-
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
@@ -211,31 +184,16 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 date2 = new Date();
-                if (barcodes.size() != 0 && ((int) (date2.getTime() - date1.getTime()))/100 > 0) {
+                if (barcodes.size() != 0 && ((int) (date2.getTime() - date1.getTime()))/100 > 10) {
                     date1 = new Date();
                     intentData = barcodes.valueAt(0).displayValue;
                     downloadJSON("http://172.24.5.51:8080/deneme/index.php?barkod=" + intentData);
-
-
-
-
                     if(getLifecycle().getCurrentState().isAtLeast(RESUMED)) {
                         Intent i = new Intent(ScannedBarcodeActivity.this, Pop.class);
                         i.putExtra("son", ans);
                         startActivity(i);
                     }
                 }
-                /*
-                else if( ((int) (date2.getTime() - date1.getTime()))/100 > 15){
-                    txtBarcodeValue.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtBarcodeValue.setText("No Barcode Detected");
-                        }
-                    });
-                }
-
-                 */
             }
         });
     }
