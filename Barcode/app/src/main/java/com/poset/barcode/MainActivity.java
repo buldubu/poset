@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        System.out.println(v);
         switch (v.getId()) {
             case R.id.nxt_button:
                 String str = "";
@@ -115,26 +116,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 writeData(str);
                 startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
                 break;
-            case R.id.image2:
-                vegetarian_check.setChecked(vegetarian_check.isChecked());
+            case R.id.db1:
+                vegan_check.setChecked(!vegan_check.isChecked());
+                break;
+            case R.id.db2:
+                vegetarian_check.setChecked(!vegetarian_check.isChecked());
+                break;
+            case R.id.db3:
+                pork_check.setChecked(!pork_check.isChecked());
+                break;
+            case R.id.db4:
+                gluten_check.setChecked(!gluten_check.isChecked());
+                break;
+            case R.id.db5:
+                fructose_check.setChecked(!fructose_check.isChecked());
+                break;
+            case R.id.db6:
+                peanut_check.setChecked(!peanut_check.isChecked());
                 break;
             case R.id.image1:
-                vegan_check.setChecked(vegan_check.isChecked());
+                vegan_check.setChecked(!vegan_check.isChecked());
+                break;
+            case R.id.image2:
+                vegetarian_check.setChecked(!vegetarian_check.isChecked());
                 break;
             case R.id.image3:
-                pork_check.setChecked(pork_check.isChecked());
+                pork_check.setChecked(!pork_check.isChecked());
                 break;
             case R.id.image4:
-                gluten_check.setChecked(gluten_check.isChecked());
+                gluten_check.setChecked(!gluten_check.isChecked());
                 break;
             case R.id.image5:
-                fructose_check.setChecked(fructose_check.isChecked());
+                fructose_check.setChecked(!fructose_check.isChecked());
                 break;
             case R.id.image6:
-                peanut_check.setChecked(peanut_check.isChecked());
+                peanut_check.setChecked(!peanut_check.isChecked());
                 break;
         }
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String str = "";
+        str+=(vegetarian_check.isChecked())+"\n";
+        str+=(vegan_check.isChecked())+"\n";
+        str+=(pork_check.isChecked())+"\n";
+        str+=(gluten_check.isChecked())+"\n";
+        str+=(fructose_check.isChecked())+"\n";
+        str+=(peanut_check.isChecked())+"\n";
+        writeData(str);
+    }
+
 
     public void writeData ( String data ) {
         try {
@@ -182,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ioe.printStackTrace ( ) ;
         }
     }
+
 }
 
 

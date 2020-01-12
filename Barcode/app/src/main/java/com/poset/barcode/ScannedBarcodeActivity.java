@@ -106,7 +106,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         if(son == "") {
                             Pop.arkaPlan.setBackgroundColor(Color.GREEN);
                             son = "You can eat it safely";
-                        }else
+                        }else if(Pop.arkaPlan != null)
                             Pop.arkaPlan.setBackgroundColor(Color.WHITE);
                         Pop.text.setText(son);
                         isr.close ( ) ;
