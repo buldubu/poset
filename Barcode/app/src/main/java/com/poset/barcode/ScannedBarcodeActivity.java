@@ -39,8 +39,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     Date date2;
     Map<String, String> map = new HashMap<>();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,22 +49,16 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     }
 
     private void downloadJSON(final String urlWebService) {
-
         class DownloadJSON extends AsyncTask<Void, Void, String> {
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
-
-
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 if(s != null && !s.equals("rro")) {
                     String[] datas = s.split("\",\"");
-
-
                     for (int i = 0; i < datas.length; i++) {
                         String temp = datas[i];
                         String[] keyValue = temp.split(":");
@@ -81,9 +73,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         }
                     });
                 }
-
             }
-
             @Override
             protected String doInBackground(Void... voids) {
                 try {
@@ -104,18 +94,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         DownloadJSON getJSON = new DownloadJSON();
         getJSON.execute();
     }
-
-
-
-
-
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
     }
-
-
-
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.floatingActionButton:
@@ -123,8 +105,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
     private void initialiseDetectorsAndSources() {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.EAN_13)
@@ -157,7 +137,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 cameraSource.stop();
             }
         });
-
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -182,19 +161,13 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
     @Override
     protected void onPause() {
         super.onPause();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
         initialiseDetectorsAndSources();
     }
-
 }
