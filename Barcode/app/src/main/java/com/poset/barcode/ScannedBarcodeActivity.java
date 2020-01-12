@@ -24,6 +24,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
 
@@ -33,9 +35,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     String intentData = "";
-    String data = "";
     Date date1;
     Date date2;
+    Map<String, String> map = new HashMap<>();
+
 
 
     @Override
@@ -43,6 +46,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
         initViews();
+        date1 = new Date();
+        date2 = new Date();
     }
 
     private void downloadJSON(final String urlWebService) {
@@ -58,7 +63,28 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                data = s;
+                if(s != null) {
+                    String[] datas = s.split("\",\"");
+
+
+                    for (int i = 0; i < datas.length; i++) {
+                        String temp = datas[i];
+                        //System.out.println(i + " --> " +temp);
+                        String[] keyValue = temp.split(":");
+                        if(i == 0) map.put(keyValue[0], keyValue[1]+"\"");
+                        else if(i == datas.length-1) map.put("\""+keyValue[0], keyValue[1]);
+                        else map.put("\""+keyValue[0], keyValue[1]+"\"");
+                        //System.out.println(map);
+                    }
+                    System.out.println(map.get("\"barkod\""));
+                    txtBarcodeValue.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtBarcodeValue.setText("Barcode: " + map.get("\"barkod\"") + "\n" + "Name: " + map.get("\"urun_adi\""));
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -72,10 +98,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     while ((json = bufferedReader.readLine()) != null) {
                         sb.append(json + "\n");
                     }
-
-                    //JSONArray jsonarray = new JSONArray(sb.toString());
-                    //Toast.makeText(getApplicationContext(), Integer.toString(jsonarray.length()),Toast.LENGTH_LONG);
-                    return sb.toString().trim();
+                    return sb.toString().substring(1, sb.length() - 2).trim();
                 } catch (Exception e) {
                     return null;
                 }
@@ -146,20 +169,12 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 date2 = new Date();
-                if (barcodes.size() != 0) {
+                if (barcodes.size() != 0 && ((int) (date2.getTime() - date1.getTime()))/100 > 5) {
                     date1 = new Date();
-
-                    txtBarcodeValue.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            intentData = barcodes.valueAt(0).displayValue;
-                            txtBarcodeValue.setText(intentData + " " + data);
-                        }
-                    });
-
+                    intentData = barcodes.valueAt(0).displayValue;
                     downloadJSON("http://172.24.5.51:8080/deneme/index.php?barkod=" + intentData);
                 }
-                else if( ((int) (date2.getTime() - date1.getTime()))/1000 > 2){
+                else if( ((int) (date2.getTime() - date1.getTime()))/100 > 15){
                     txtBarcodeValue.post(new Runnable() {
                         @Override
                         public void run() {
