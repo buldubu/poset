@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -28,6 +29,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static androidx.lifecycle.Lifecycle.State.RESUMED;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
 
@@ -118,8 +121,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                             i++;
                             readString = buffreader.readLine ( ) ;
                         }
-                        System.out.println(son);
-                        ans = son;
+                        //System.out.println(son);
+                        //ans = son;
+                        Pop.text.setText(son);
                         /*
                         final String ans = son;
                         txtBarcodeValue.post(new Runnable() {
@@ -207,15 +211,21 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 date2 = new Date();
-                if (barcodes.size() != 0 && ((int) (date2.getTime() - date1.getTime()))/100 > 10) {
+                if (barcodes.size() != 0 && ((int) (date2.getTime() - date1.getTime()))/100 > 0) {
                     date1 = new Date();
                     intentData = barcodes.valueAt(0).displayValue;
                     downloadJSON("http://172.24.5.51:8080/deneme/index.php?barkod=" + intentData);
 
-                    Intent i = new Intent(ScannedBarcodeActivity.this, Pop.class);
-                    i.putExtra("son", ans);
-                    startActivity(i);
+
+
+
+                    if(getLifecycle().getCurrentState().isAtLeast(RESUMED)) {
+                        Intent i = new Intent(ScannedBarcodeActivity.this, Pop.class);
+                        i.putExtra("son", ans);
+                        startActivity(i);
+                    }
                 }
+                /*
                 else if( ((int) (date2.getTime() - date1.getTime()))/100 > 15){
                     txtBarcodeValue.post(new Runnable() {
                         @Override
@@ -224,6 +234,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                 */
             }
         });
     }
