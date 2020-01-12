@@ -63,7 +63,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if(s != null && s.equals("Error")) {
+                if(s != null && !s.equals("Error")) {
                     String[] datas = s.split("\",\"");
 
 
