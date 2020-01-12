@@ -63,20 +63,17 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if(s != null && !s.equals("Error")) {
+                if(s != null && !s.equals("rro")) {
                     String[] datas = s.split("\",\"");
 
 
                     for (int i = 0; i < datas.length; i++) {
                         String temp = datas[i];
-                        //System.out.println(i + " --> " +temp);
                         String[] keyValue = temp.split(":");
                         if(i == 0) map.put(keyValue[0], keyValue[1]+"\"");
                         else if(i == datas.length-1) map.put("\""+keyValue[0], keyValue[1]);
                         else map.put("\""+keyValue[0], keyValue[1]+"\"");
-                        //System.out.println(map);
                     }
-                    System.out.println(map.get("\"barkod\""));
                     txtBarcodeValue.post(new Runnable() {
                         @Override
                         public void run() {
