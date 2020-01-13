@@ -118,7 +118,8 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         ioe.printStackTrace ( ) ;
                     }
                 }else{
-                    ans = "<h1>404 Not Found!</h1>";
+                    ans = "<h2>This product is not registered in our database!</h2>";
+                    Pop.arkaPlan.setBackgroundColor(Color.WHITE);
                     Pop.text.setText(Html.fromHtml(ans));
                 }
             }
