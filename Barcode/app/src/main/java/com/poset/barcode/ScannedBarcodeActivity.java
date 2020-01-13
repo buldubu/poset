@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.text.Html;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -83,36 +84,42 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         String readString = buffreader.readLine ( ) ;
                         while ( readString != null ) {
                             if(i == 0 && map.get("\"vegan\"").equals(comp) && Boolean.parseBoolean(readString)){
-                                son = son + "Non Vegan!\n";
+                                son = son + "Non Vegan!<br>";
                             }
                             else if(i == 1 && map.get("\"vejeteryan\"").equals(comp) && Boolean.parseBoolean(readString)){
-                                son = son + "Non Vegeterian!\n";
+                                son = son + "Non Vegetarian!<br>";
                             }
                             else if(i == 2 && map.get("\"non_pork\"").equals(comp) && Boolean.parseBoolean(readString)){
-                                son = son + "Pork!\n";
+                                son = son + "Contains Pork!<br>";
                             }
                             else if(i == 3 && map.get("\"gluten\"").equals(comp) && Boolean.parseBoolean(readString)){
-                                son = son + "Gluten includes!\n";
+                                son = son + "Contains Gluten!<br>";
                             }
                             else if(i == 4 && map.get("\"fruktoz\"").equals(comp) && Boolean.parseBoolean(readString)){
-                                son = son + "Fructose includes!\n";
+                                son = son + "Contains Fructose!<br>";
                             }
                             else if(i == 5 && map.get("\"yer_fistigi\"").equals(comp) && Boolean.parseBoolean(readString)) {
-                                son = son + "Peanut includes!\n";
+                                son = son + "Contains Peanut!<br>";
                             }
                             i++;
                             readString = buffreader.readLine ( ) ;
                         }
                         if(son == "") {
                             Pop.arkaPlan.setBackgroundColor(Color.GREEN);
-                            son = "You can eat it safely";
-                        }else if(Pop.arkaPlan != null)
+                            son = "<h1>You can eat it safely</h1>";
+                        }else if(Pop.arkaPlan != null) {
+                            son = "<h3>You shouldn't eat it!</h3>" + son;
                             Pop.arkaPlan.setBackgroundColor(Color.WHITE);
-                        Pop.text.setText(son);
+                        }
+                        ans = son;
+                        Pop.text.setText(Html.fromHtml(son));
                         isr.close ( ) ;
                     } catch ( IOException ioe ) {
                         ioe.printStackTrace ( ) ;
                     }
+                }else{
+                    ans = "<h1>404 Not Found!</h1>";
+                    Pop.text.setText(Html.fromHtml(ans));
                 }
             }
             @Override

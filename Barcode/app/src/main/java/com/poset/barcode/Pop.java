@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,10 +25,10 @@ public class Pop extends Activity {
         Intent i = getIntent();
         String son = i.getExtras().getString("son");
         text = findViewById(R.id.textView);
-        text.setText(son);
+        text.setText(Html.fromHtml(son));
 
         if(text.getText() == null)
-            text.setText(son);
+            text.setText(Html.fromHtml(son));
         if(son == null) {
             arkaPlan.setBackgroundColor(Color.GREEN);
         }else
@@ -37,7 +38,7 @@ public class Pop extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width*.64),(int) (height*.19));
+        getWindow().setLayout((int) (width*.64),(int) (height*.22));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class Pop extends Activity {
         Intent i = getIntent();
         String son = i.getExtras().getString("son");
         if(text.getText() == null)
-            text.setText(son);
+            text.setText(Html.fromHtml(son));
         if(son == null) {
             arkaPlan.setBackgroundColor(Color.GREEN);
         }else
