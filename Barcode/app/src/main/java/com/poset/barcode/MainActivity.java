@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.nxt_button:
                 String str = "";
-                str+=(vegetarian_check.isChecked())+"\n";
                 str+=(vegan_check.isChecked())+"\n";
+                str+=(vegetarian_check.isChecked())+"\n";
                 str+=(pork_check.isChecked())+"\n";
                 str+=(gluten_check.isChecked())+"\n";
                 str+=(fructose_check.isChecked())+"\n";
@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         String str = "";
-        str+=(vegetarian_check.isChecked())+"\n";
         str+=(vegan_check.isChecked())+"\n";
+        str+=(vegetarian_check.isChecked())+"\n";
         str+=(pork_check.isChecked())+"\n";
         str+=(gluten_check.isChecked())+"\n";
         str+=(fructose_check.isChecked())+"\n";
@@ -191,11 +191,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             BufferedReader buffreader = new BufferedReader ( isr ) ;
             String readString = buffreader.readLine ( ) ;
             while ( readString != null ) {
-                if(i == 0 && readString.equals("true")) vegetarian_check.setChecked(true);
-                else if(i == 0) vegetarian_check.setChecked(false);
+                if(i == 0 && readString.equals("true")) vegan_check.setChecked(true);
+                else if(i == 0) vegan_check.setChecked(false);
 
-                if(i == 1 && readString.equals("true")) vegan_check.setChecked(true);
-                else if(i == 1) vegan_check.setChecked(false);
+                if(i == 1 && readString.equals("true")) vegetarian_check.setChecked(true);
+                else if(i == 1) vegetarian_check.setChecked(false);
 
                 if(i == 2 && readString.equals("true")) pork_check.setChecked(true);
                 else if(i == 2) pork_check.setChecked(false);
