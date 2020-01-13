@@ -118,7 +118,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                         ioe.printStackTrace ( ) ;
                     }
                 }else{
-                    ans = "<h2>This product is not registered in our database!</h2>";
+                    ans = "<p style=\"text-align:center\">This product is not registered in our database!!</p>";
                     Pop.arkaPlan.setBackgroundColor(Color.WHITE);
                     Pop.text.setText(Html.fromHtml(ans));
                 }
