@@ -15,7 +15,7 @@
 - In this version, it isn't possible to run the project without setting up the server and editing ScannedBarcodeActivity.java.
 
 ##### Setting up the server on localhost
-- Run ```index.php``` in server folder. Then, edit the IP in ScannedBarcodeActivity.java in line 151 to your IP.
+- Run ```index.php``` in server folder. Then, edit the IP in ScannedBarcodeActivity.java in line 200 to your IP.
 - Now, you are able to reach server. Then, you need to enter products to table in this server.
 - After doing that, you should be able to reach server when you run Poset app.
 
