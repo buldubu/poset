@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -54,6 +55,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         initViews();
         date1 = new Date();
         date2 = new Date();
+        Toast.makeText(getApplicationContext(),"Please scan the Barcode", Toast.LENGTH_LONG).show();
     }
 
     private void downloadJSON(final String urlWebService) {
@@ -195,7 +197,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 if (barcodes.size() != 0 && ((int) (date2.getTime() - date1.getTime()))/100 > 10) {
                     date1 = new Date();
                     intentData = barcodes.valueAt(0).displayValue;
-                    downloadJSON("http://172.24.5.51:8080/deneme/index.php?barkod=" + intentData);
+                    downloadJSON("http://192.168.43.9:8080/deneme/index.php?barkod=" + intentData);
                     if(getLifecycle().getCurrentState().isAtLeast(RESUMED)) {
                         Intent i = new Intent(ScannedBarcodeActivity.this, Pop.class);
                         i.putExtra("son", ans);
